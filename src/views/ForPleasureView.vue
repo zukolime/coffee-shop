@@ -7,7 +7,7 @@
             <nav-bar-component />
           </div>
         </div>
-        <h1 class="title-big">For your pleasure</h1>
+        <header-title :text="title.text" />
       </div>
     </div>
     <section class="shop">
@@ -48,12 +48,42 @@
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="shop__wrapper">
-              <product-card />
-              <product-card />
-              <product-card />
-              <product-card />
-              <product-card />
-              <product-card />
+              <product-card
+                classItem="shop__item"
+                :title="goods[0].title"
+                :price="goods[0].price"
+                :img="goods[0].img"
+              />
+              <product-card
+                classItem="shop__item"
+                :title="goods[1].title"
+                :price="goods[1].price"
+                :img="goods[1].img"
+              />
+              <product-card
+                classItem="shop__item"
+                :title="goods[2].title"
+                :price="goods[2].price"
+                :img="goods[2].img"
+              />
+              <product-card
+                classItem="shop__item"
+                :title="goods[3].title"
+                :price="goods[3].price"
+                :img="goods[3].img"
+              />
+              <product-card
+                classItem="shop__item"
+                :title="goods[4].title"
+                :price="goods[4].price"
+                :img="goods[4].img"
+              />
+              <product-card
+                classItem="shop__item"
+                :title="goods[5].title"
+                :price="goods[5].price"
+                :img="goods[5].img"
+              />
             </div>
           </div>
         </div>
@@ -65,13 +95,18 @@
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
+import HeaderTitle from "@/components/HeaderTitle.vue";
 
 export default {
-  components: { NavBarComponent, ProductCard },
+  components: { NavBarComponent, ProductCard, HeaderTitle },
 
   data() {
     return {
-      cards: [
+      title: {
+        text: "For your pleasure",
+      },
+
+      goods: [
         {
           id: 0,
           img: "coffee-1.jpg",

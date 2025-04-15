@@ -10,21 +10,30 @@
             :alt="links[0].icon"
         /></RouterLink>
       </li>
-      <li class="header__item">
-        <RouterLink :to="links[1].link">{{ links[1].text }}</RouterLink>
-      </li>
-      <li class="header__item">
-        <RouterLink :to="links[2].link">{{ links[2].text }}</RouterLink>
-      </li>
-      <li class="header__item">
-        <RouterLink :to="links[3].link">{{ links[3].text }}</RouterLink>
-      </li>
+      <nav-link-component
+        classLink="header__item"
+        :link="links[1].link"
+        :text="links[1].text"
+      />
+      <nav-link-component
+        classLink="header__item"
+        :link="links[2].link"
+        :text="links[2].text"
+      />
+      <nav-link-component
+        classLink="header__item"
+        :link="links[3].link"
+        :text="links[3].text"
+      />
     </ul>
   </header>
 </template>
 
 <script>
+import NavLinkComponent from "@/components/NavLinkComponent.vue";
+
 export default {
+  components: { NavLinkComponent },
   data() {
     return {
       links: [
