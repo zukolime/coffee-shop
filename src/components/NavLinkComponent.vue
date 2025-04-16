@@ -1,6 +1,6 @@
 <template>
   <li :class="classLink">
-    <RouterLink :to="link">{{ text }}</RouterLink>
+    <RouterLink :to="link">{{ text }}<slot></slot></RouterLink>
   </li>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   props: {
     text: {
       type: String,
-      required: true,
+      required: false,
     },
     link: {
       type: String,
@@ -17,7 +17,7 @@ export default {
     },
     classLink: {
       type: String,
-      required: false,
+      required: true,
     },
   },
 };

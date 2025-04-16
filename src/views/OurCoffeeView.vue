@@ -70,40 +70,12 @@
           <div class="col-lg-10 offset-lg-1">
             <div class="shop__wrapper">
               <product-card
+                v-for="coffeeItem in coffee"
+                :key="coffeeItem.id"
                 classItem="shop__item"
-                :title="coffee[0].title"
-                :price="coffee[0].price"
-                :img="coffee[0].img"
-              />
-              <product-card
-                classItem="shop__item"
-                :title="coffee[1].title"
-                :price="coffee[1].price"
-                :img="coffee[1].img"
-              />
-              <product-card
-                classItem="shop__item"
-                :title="coffee[2].title"
-                :price="coffee[2].price"
-                :img="coffee[2].img"
-              />
-              <product-card
-                classItem="shop__item"
-                :title="coffee[3].title"
-                :price="coffee[3].price"
-                :img="coffee[3].img"
-              />
-              <product-card
-                classItem="shop__item"
-                :title="coffee[4].title"
-                :price="coffee[4].price"
-                :img="coffee[4].img"
-              />
-              <product-card
-                classItem="shop__item"
-                :title="coffee[5].title"
-                :price="coffee[5].price"
-                :img="coffee[5].img"
+                :title="coffeeItem.title"
+                :price="coffeeItem.price"
+                :img="coffeeItem.img"
               />
             </div>
           </div>
@@ -118,6 +90,8 @@ import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   components: { NavBarComponent, ProductCard, HeaderTitle },
 
@@ -129,42 +103,42 @@ export default {
 
       coffee: [
         {
-          id: 0,
+          id: uuidv4(),
           img: "coffee-1.jpg",
           title: "Solimo Coffee Beans 2kg",
           country: "Brazil",
           price: 10.73,
         },
         {
-          id: 1,
+          id: uuidv4(),
           img: "coffee-2.jpg",
           title: "Presto Coffee Beans 1kg",
           country: "Brazil",
           price: 15.99,
         },
         {
-          id: 2,
+          id: uuidv4(),
           img: "coffee-3.jpg",
           title: "AROMISTICO Coffee 1kg",
           country: "Brazil",
           price: 6.99,
         },
         {
-          id: 3,
+          id: uuidv4(),
           img: "coffee-1.jpg",
           title: "Puro Arabica Kenya 1kg",
           country: "Kenya",
           price: 10.99,
         },
         {
-          id: 4,
+          id: uuidv4(),
           img: "coffee-2.jpg",
           title: "Broceliande KENYA GOURMET 1kg",
           country: "Italy",
           price: 17.99,
         },
         {
-          id: 5,
+          id: uuidv4(),
           img: "coffee-3.jpg",
           title: "Alpinico ESPRESSO INTENSO 1kg",
           country: "Colombia",

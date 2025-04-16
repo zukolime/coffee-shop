@@ -3,27 +3,19 @@
     <ul
       class="header d-flex justify-content-center justify-content-md-start flex-wrap"
     >
-      <li class="header__item">
-        <RouterLink :to="links[0].link"
-          ><img
-            :src="require(`@/assets/logo/${links[0].icon}`)"
-            :alt="links[0].icon"
-        /></RouterLink>
-      </li>
+      <nav-link-component :link="links.header.link" classLink="header__item">
+        <img
+          :src="require(`@/assets/logo/${links.header.icon}`)"
+          :alt="links.header.icon"
+        />
+      </nav-link-component>
+
       <nav-link-component
+        v-for="link in links.other"
+        :key="link.id"
         classLink="header__item"
-        :link="links[1].link"
-        :text="links[1].text"
-      />
-      <nav-link-component
-        classLink="header__item"
-        :link="links[2].link"
-        :text="links[2].text"
-      />
-      <nav-link-component
-        classLink="header__item"
-        :link="links[3].link"
-        :text="links[3].text"
+        :link="link.link"
+        :text="link.text"
       />
     </ul>
   </header>
@@ -32,32 +24,36 @@
 <script>
 import NavLinkComponent from "@/components/NavLinkComponent.vue";
 
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   components: { NavLinkComponent },
   data() {
     return {
-      links: [
-        {
-          id: 0,
+      links: {
+        header: {
+          id: uuidv4(),
           link: "/",
           icon: "Logo.svg",
         },
-        {
-          id: 1,
-          text: "Our coffee",
-          link: "/our-coffee",
-        },
-        {
-          id: 2,
-          text: "For your pleasure",
-          link: "/for-your-pleasure",
-        },
-        {
-          id: 3,
-          text: "Contact us",
-          link: "/contact-us",
-        },
-      ],
+        other: [
+          {
+            id: uuidv4(),
+            text: "Our coffee",
+            link: "/our-coffee",
+          },
+          {
+            id: uuidv4(),
+            text: "For your pleasure",
+            link: "/for-your-pleasure",
+          },
+          {
+            id: uuidv4(),
+            text: "Contact us",
+            link: "/contact-us",
+          },
+        ],
+      },
     };
   },
 };
