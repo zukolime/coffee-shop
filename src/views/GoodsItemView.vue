@@ -1,13 +1,16 @@
 <template>
   <main>
-    <div class="banner itempage-banner">
+    <div
+      class="banner"
+      :class="pageName === 'coffee' ? 'coffepage-banner' : 'goodspage-banner'"
+    >
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
             <nav-bar-component />
           </div>
         </div>
-        <header-title :text="title.text" />
+        <h1 class="title-big">{{ card.name }}</h1>
       </div>
     </div>
 
@@ -17,7 +20,7 @@
           <div class="col-lg-5 offset-1">
             <img
               class="shop__girl"
-              src="img/coffee_item.jpg"
+              :src="require(`@/assets/img/${card.img}`)"
               alt="coffee_item"
             />
           </div>
@@ -25,7 +28,7 @@
             <div class="title">About it</div>
             <img
               class="beanslogo"
-              src="logo/Beans_logo_dark.svg"
+              src="@/assets/logo/Beans_logo_dark.svg"
               alt="Beans logo"
             />
             <div class="shop__point">
@@ -40,8 +43,10 @@
               nisi ut aliquip ex ea commodo consequat.
             </div>
             <div class="shop__point">
-              <span>Price:</span>
-              <span class="shop__point-price">16.99$</span>
+              <span>Price: </span>
+              <span class="shop__point-price">{{
+                card.price | addCurrency
+              }}</span>
             </div>
           </div>
         </div>
@@ -52,17 +57,20 @@
 
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
-import HeaderTitle from "@/components/HeaderTitle.vue";
 
 export default {
-  components: { NavBarComponent, HeaderTitle },
+  components: { NavBarComponent },
 
-  data() {
-    return {
-      title: {
-        text: "Our Coffee",
-      },
-    };
+  computed: {
+    pageName() {
+      return this.$route.name;
+    },
+    pageGetter() {
+      return this.pageName === "coffee" ? "getCoffeeById" : "getGoodsById";
+    },
+    card() {
+      return this.$store.getters[this.pageGetter](this.$route.params.id);
+    },
   },
 };
 </script>

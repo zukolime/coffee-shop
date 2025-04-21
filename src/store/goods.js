@@ -1,47 +1,45 @@
-import { v4 as uuidv4 } from "uuid";
-
 const goods = {
   state: {
     goods: [
       {
-        id: uuidv4(),
+        id: 0,
         img: "coffee-1.jpg",
-        title: "Solimo Coffee Beans 2kg",
+        name: "Solimo Coffee Beans 2kg",
         country: "Brazil",
         price: 10.73,
       },
       {
-        id: uuidv4(),
+        id: 1,
         img: "coffee-2.jpg",
-        title: "Presto Coffee Beans 1kg",
+        name: "Presto Coffee Beans 1kg",
         country: "Brazil",
         price: 15.99,
       },
       {
-        id: uuidv4(),
+        id: 2,
         img: "coffee-3.jpg",
-        title: "AROMISTICO Coffee 1kg",
+        name: "AROMISTICO Coffee 1kg",
         country: "Brazil",
         price: 6.99,
       },
       {
-        id: uuidv4(),
+        id: 3,
         img: "coffee-1.jpg",
-        title: "Puro Arabica Kenya 1kg",
+        name: "Puro Arabica Kenya 1kg",
         country: "Kenya",
         price: 10.99,
       },
       {
-        id: uuidv4(),
+        id: 4,
         img: "coffee-2.jpg",
-        title: "Broceliande KENYA GOURMET 1kg",
+        name: "Broceliande KENYA GOURMET 1kg",
         country: "Italy",
         price: 17.99,
       },
       {
-        id: uuidv4(),
+        id: 5,
         img: "coffee-3.jpg",
-        title: "Alpinico ESPRESSO INTENSO 1kg",
+        name: "Alpinico ESPRESSO INTENSO 1kg",
         country: "Colombia",
         price: 10.39,
       },
@@ -51,6 +49,11 @@ const goods = {
   getters: {
     getGoods(state) {
       return state.goods;
+    },
+    getGoodsById(state) {
+      return (id) => {
+        return state.goods.find((card) => card.id === +id);
+      };
     },
   },
 };
