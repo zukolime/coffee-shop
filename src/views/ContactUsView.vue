@@ -118,16 +118,19 @@
                       id="checkbox"
                       checked
                     />
-                    <label v-if="checkbox" for="checkbox"
-                      >I accept the terms of the offer</label
-                    >
-                    <label
-                      class="error-message"
-                      v-else
-                      v-for="error in v$.checkbox.$errors"
-                      :key="error.$uid"
-                      >I accept the terms of the offer -
-                      {{ (error.$message = "Value is required") }}</label
+                    <template v-if="checkbox">
+                      <label for="checkbox"
+                        >I accept the terms of the offer</label
+                      >
+                    </template>
+                    <template v-else
+                      ><label
+                        class="error-message"
+                        v-for="error in v$.checkbox.$errors"
+                        :key="error.$uid"
+                        >I accept the terms of the offer -
+                        {{ error.$message || "Value is required" }}</label
+                      ></template
                     >
                   </div>
                 </div>
@@ -198,13 +201,34 @@ export default {
       const isFormCorrect = await this.v$.$validate();
       if (!isFormCorrect) return;
 
-      console.log({
+      const message = {
         name: this.name,
         email: this.email,
         phone: this.phone,
         message: this.message,
         checkbox: this.checkbox,
-      });
+      };
+
+      try {
+        const response = await fetch("http://localhost:3000/contacts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(message),
+        });
+
+        if (response.ok) {
+          this.name = "";
+          this.email = "";
+          this.phone = "";
+          this.message = "";
+          this.checkbox = true;
+          this.v$.$reset();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

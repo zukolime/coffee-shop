@@ -10,19 +10,15 @@
             <nav-bar-component />
           </div>
         </div>
-        <h1 class="title-big">{{ card.name }}</h1>
+        <h1 class="title-big" v-if="product">{{ product.name }}</h1>
       </div>
     </div>
 
-    <section class="shop">
+    <section class="shop" v-if="product">
       <div class="container">
         <div class="row">
           <div class="col-lg-5 offset-1">
-            <img
-              class="shop__girl"
-              :src="require(`@/assets/img/${card.img}`)"
-              alt="coffee_item"
-            />
+            <img class="shop__girl" :src="product.image" alt="coffee_item" />
           </div>
           <div class="col-lg-4">
             <div class="title">About it</div>
@@ -33,20 +29,15 @@
             />
             <div class="shop__point">
               <span>Country:</span>
-              Brazil
+              {{ product.country }}
             </div>
             <div class="shop__point">
               <span>Description:</span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              {{ product.description }}
             </div>
             <div class="shop__point">
               <span>Price: </span>
-              <span class="shop__point-price">{{
-                card.price | addCurrency
-              }}</span>
+              <span class="shop__point-price">{{ product.price }}</span>
             </div>
           </div>
         </div>
@@ -57,20 +48,26 @@
 
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: { NavBarComponent },
 
+  mounted() {
+    this.$store.dispatch("getProduct", {
+      pageName: this.pageName,
+      id: this.$route.params.id,
+    });
+  },
+
+  destroyed() {
+    this.$store.commit("setProduct", null);
+  },
   computed: {
     pageName() {
       return this.$route.name;
     },
-    pageGetter() {
-      return this.pageName === "coffee" ? "getCoffeeById" : "getGoodsById";
-    },
-    card() {
-      return this.$store.getters[this.pageGetter](this.$route.params.id);
-    },
+    ...mapGetters(["product", "pageGetter", "card"]),
   },
 };
 </script>
