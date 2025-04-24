@@ -58,7 +58,9 @@
           </div>
           <div class="col-lg-4">
             <div class="shop__filter">
-              <div class="shop__filter-label">Or filter</div>
+              <div class="shop__filter-label" @click="resetFilter">
+                Or filter
+              </div>
               <div class="shop__filter-group">
                 <button class="shop__filter-btn" @click="onSort('Brazil')">
                   Brazil
@@ -136,6 +138,16 @@ export default {
       this.onSort(event.target.value);
     }, 500),
 
+    resetFilter() {
+      this.$store.dispatch("setSearchValue", "");
+      this.$store.dispatch("setSortValue", "");
+      fetch("http://localhost:3000/coffee")
+        .then((res) => res.json())
+        .then((data) => {
+          this.$store.dispatch("setCoffeeData", data);
+        });
+    },
+
     onSort(value) {
       fetch(`http://localhost:3000/coffee?q=${value}`)
         .then((res) => res.json())
@@ -146,3 +158,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.shop__filter-label {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+</style>
