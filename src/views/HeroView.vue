@@ -87,6 +87,13 @@ import { scrollIntoView } from "seamless-scroll-polyfill";
 
 export default {
   components: { NavBarComponent, ProductCard, HeaderTitle },
+  mounted() {
+    fetch("http://localhost:3000/bestsellers")
+      .then((res) => res.json())
+      .then((data) => {
+        this.$store.dispatch("setBestsellersData", data);
+      });
+  },
   computed: {
     bestsellers() {
       return this.$store.getters["getBestsellers"];
